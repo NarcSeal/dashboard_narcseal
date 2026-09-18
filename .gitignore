@@ -1,0 +1,59 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+
+# Production builds
+dist/
+build/
+out/
+coverage/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Cache and temporary files
+.cache/
+.tmp/
+temp/
+*.tsbuildinfo
+
+# Vite
+.vite/
+
+# Next.js
+.next/
+
+# React Native / Expo
+.expo/
+.expo-shared/
+
+# Testing
+.nyc_output/
+
+# Editor and IDE files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.iml
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Windows files
+ ehthumbs.db
+
+# Optional local configuration
+*.local

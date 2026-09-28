@@ -6,14 +6,14 @@ import { Header } from './Header';
 
 export const MainLayout = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const drawerWidth = 260;
+  const drawerWidth = 240;
 
   const handleMobileToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: '#0A0E1A' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
       <Sidebar
         width={drawerWidth}
         mobileOpen={mobileOpen}
@@ -26,8 +26,8 @@ export const MainLayout = () => {
           component="main"
           sx={{
             flexGrow: 1,
-            p: { xs: 2, sm: 3 },
-            bgcolor: '#0A0E1A',
+            p: { xs: 2, sm: 3, md: 3 },
+            bgcolor: 'background.default',
             overflowY: 'auto',
           }}
         >

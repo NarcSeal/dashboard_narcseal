@@ -31,10 +31,10 @@ export const EvidenceModal = ({ open, record, onClose }) => {
       fullWidth
       PaperProps={{
         sx: {
-          bgcolor: '#0d1527',
-          border: '1px solid rgba(56, 189, 248, 0.25)',
+          bgcolor: '#FFFFFF', // WHITE MODAL SURFACE
+          border: '1px solid #D1CCBA',
           borderRadius: 2.5,
-          color: '#f8fafc',
+          color: '#1F241A', // PRIMARY TEXT
         },
       }}
     >
@@ -48,17 +48,17 @@ export const EvidenceModal = ({ open, record, onClose }) => {
         }}
       >
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-          <VerifiedIcon sx={{ color: record.tamper_flag ? '#ef4444' : '#10b981', fontSize: 24 }} />
+          <VerifiedIcon sx={{ color: record.tamper_flag ? '#D94B4B' : '#3F7A4D', fontSize: 24 }} />
           <Box>
-            <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2 }}>
+            <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2, color: 'text.primary' }}>
               NCB Forensic Evidence Dossier
             </Typography>
-            <Typography variant="caption" sx={{ color: '#94a3b8', fontFamily: 'monospace' }}>
+            <Typography variant="caption" sx={{ color: '#8A8060', fontFamily: 'monospace', fontWeight: 600 }}>
               RECORD REF: {record.id}
             </Typography>
           </Box>
         </Box>
-        <IconButton onClick={onClose} sx={{ color: '#94a3b8' }}>
+        <IconButton onClick={onClose} sx={{ color: 'text.secondary' }}>
           <CloseIcon />
         </IconButton>
       </DialogTitle>
@@ -73,8 +73,8 @@ export const EvidenceModal = ({ open, record, onClose }) => {
                 height: 240,
                 borderRadius: 2,
                 overflow: 'hidden',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                bgcolor: '#080d1a',
+                border: '1px solid #D1CCBA',
+                bgcolor: '#1A1D16', // VERY DARK OLIVE (replacing Navy)
                 position: 'relative',
               }}
             >
@@ -88,13 +88,14 @@ export const EvidenceModal = ({ open, record, onClose }) => {
                   position: 'absolute',
                   top: 8,
                   left: 8,
-                  bgcolor: 'rgba(0,0,0,0.7)',
+                  bgcolor: 'rgba(250, 249, 244, 0.85)', // Semi-transparent warm white
                   px: 1,
                   py: 0.3,
                   borderRadius: 1,
+                  border: '1px solid #D1CCBA',
                 }}
               >
-                <Typography variant="caption" sx={{ color: '#38bdf8', fontFamily: 'monospace' }}>
+                <Typography variant="caption" sx={{ color: '#343A24', fontFamily: 'monospace', fontWeight: 700 }}>
                   RAW OPTICAL CAPTURE
                 </Typography>
               </Box>
@@ -106,20 +107,20 @@ export const EvidenceModal = ({ open, record, onClose }) => {
                 mt: 2,
                 p: 1.5,
                 borderRadius: 1.5,
-                bgcolor: '#111b30',
-                border: '1px solid rgba(255, 255, 255, 0.06)',
+                bgcolor: '#F3F0E5',
+                border: '1px solid #D1CCBA',
               }}
             >
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.8 }}>
-                <GpsFixedIcon sx={{ color: '#38bdf8', fontSize: 18 }} />
-                <Typography variant="caption" sx={{ fontWeight: 700, color: '#f8fafc', textTransform: 'uppercase' }}>
+                <GpsFixedIcon sx={{ color: '#343A24', fontSize: 18 }} />
+                <Typography variant="caption" sx={{ fontWeight: 700, color: '#1F241A', textTransform: 'uppercase' }}>
                   GPS Telemetry Seal
                 </Typography>
               </Box>
-              <Typography variant="body2" sx={{ color: '#94a3b8', fontSize: '0.82rem', mb: 0.5 }}>
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.82rem', mb: 0.5, fontWeight: 600 }}>
                 {record.location_name}
               </Typography>
-              <Typography variant="caption" sx={{ color: '#38bdf8', fontFamily: 'monospace', display: 'block' }}>
+              <Typography variant="caption" sx={{ color: '#8A8060', fontFamily: 'monospace', display: 'block', fontWeight: 600 }}>
                 LAT: {record.gps_lat.toFixed(4)}° N | LNG: {record.gps_lng.toFixed(4)}° E
               </Typography>
             </Box>
@@ -129,10 +130,10 @@ export const EvidenceModal = ({ open, record, onClose }) => {
           <Grid item xs={12} md={7}>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1.5 }}>
               <Box>
-                <Typography variant="caption" sx={{ color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>
                   Sample Classified
                 </Typography>
-                <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc' }}>
+                <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
                   {record.substance}
                 </Typography>
               </Box>
@@ -141,21 +142,21 @@ export const EvidenceModal = ({ open, record, onClose }) => {
 
             <Grid container spacing={1.5} sx={{ mb: 2 }}>
               <Grid item xs={6}>
-                <Box sx={{ bgcolor: '#111b30', p: 1.2, borderRadius: 1.5 }}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>
+                <Box sx={{ bgcolor: '#F3F0E5', border: '1px solid #D1CCBA', p: 1.2, borderRadius: 1.5 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
                     AI Confidence
                   </Typography>
-                  <Typography variant="h6" sx={{ color: '#10b981', fontWeight: 700, fontFamily: 'monospace' }}>
+                  <Typography variant="h6" sx={{ color: '#3F7A4D', fontWeight: 700, fontFamily: 'monospace' }}>
                     {record.confidence_score}%
                   </Typography>
                 </Box>
               </Grid>
               <Grid item xs={6}>
-                <Box sx={{ bgcolor: '#111b30', p: 1.2, borderRadius: 1.5 }}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>
+                <Box sx={{ bgcolor: '#F3F0E5', border: '1px solid #C8C4B5', p: 1.2, borderRadius: 1.5 }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>
                     Gross Net Weight
                   </Typography>
-                  <Typography variant="h6" sx={{ color: '#f59e0b', fontWeight: 700, fontFamily: 'monospace' }}>
+                  <Typography variant="h6" sx={{ color: '#C68A22', fontWeight: 700, fontFamily: 'monospace' }}>
                     {record.weight_grams} g
                   </Typography>
                 </Box>
@@ -163,51 +164,51 @@ export const EvidenceModal = ({ open, record, onClose }) => {
             </Grid>
 
             {/* Officer & Device Metadata */}
-            <Box sx={{ bgcolor: '#111b30', p: 1.5, borderRadius: 1.5, mb: 2 }}>
-              <Typography variant="caption" sx={{ color: '#94a3b8', fontWeight: 700, display: 'block', mb: 0.8 }}>
+            <Box sx={{ bgcolor: '#F3F0E5', border: '1px solid #D1CCBA', p: 1.5, borderRadius: 1.5, mb: 2 }}>
+              <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 700, display: 'block', mb: 0.8 }}>
                 OFFICER & DEVICE CHAIN OF CUSTODY
               </Typography>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                <Typography variant="caption" sx={{ color: '#64748b' }}>Investigating Officer:</Typography>
-                <Typography variant="caption" sx={{ color: '#f8fafc', fontWeight: 600 }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>Investigating Officer:</Typography>
+                <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 600 }}>
                   {record.officer_name} ({record.officer_badge})
                 </Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                <Typography variant="caption" sx={{ color: '#64748b' }}>Jurisdiction Station:</Typography>
-                <Typography variant="caption" sx={{ color: '#f8fafc' }}>{record.station}</Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>Jurisdiction Station:</Typography>
+                <Typography variant="caption" sx={{ color: 'text.primary', fontWeight: 600 }}>{record.station}</Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-                <Typography variant="caption" sx={{ color: '#64748b' }}>Hardware Token ID:</Typography>
-                <Typography variant="caption" sx={{ color: '#38bdf8', fontFamily: 'monospace' }}>{record.device_id}</Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>Hardware Token ID:</Typography>
+                <Typography variant="caption" sx={{ color: '#343A24', fontFamily: 'monospace', fontWeight: 600 }}>{record.device_id}</Typography>
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="caption" sx={{ color: '#64748b' }}>Acquisition Timestamp:</Typography>
-                <Typography variant="caption" sx={{ color: '#f8fafc', fontFamily: 'monospace' }}>{record.timestamp}</Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontWeight: 600 }}>Acquisition Timestamp:</Typography>
+                <Typography variant="caption" sx={{ color: 'text.primary', fontFamily: 'monospace', fontWeight: 600 }}>{record.timestamp}</Typography>
               </Box>
             </Box>
 
             {/* Cryptographic Hashes (NDPS 65B Standard) */}
-            <Box sx={{ bgcolor: '#080d1a', p: 1.5, borderRadius: 1.5, border: '1px solid rgba(255,255,255,0.06)' }}>
+            <Box sx={{ bgcolor: '#FAF9F4', p: 1.5, borderRadius: 1.5, border: '1px solid #D1CCBA' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                <KeyIcon sx={{ color: '#f59e0b', fontSize: 16 }} />
-                <Typography variant="caption" sx={{ color: '#f59e0b', fontWeight: 700 }}>
+                <KeyIcon sx={{ color: '#343A24', fontSize: 16 }} />
+                <Typography variant="caption" sx={{ color: '#343A24', fontWeight: 700 }}>
                   NDPS SEC 65B CRYPTOGRAPHIC CHECKSUM
                 </Typography>
               </Box>
               <Box sx={{ mb: 1 }}>
-                <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.68rem', display: 'block' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.68rem', display: 'block', fontWeight: 600 }}>
                   SHA-256 EVIDENCE PAYLOAD HASH:
                 </Typography>
-                <Typography variant="caption" sx={{ color: '#34d399', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all' }}>
+                <Typography variant="caption" sx={{ color: '#3F7A4D', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all', fontWeight: 600 }}>
                   {record.sha256_hash}
                 </Typography>
               </Box>
               <Box>
-                <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.68rem', display: 'block' }}>
+                <Typography variant="caption" sx={{ color: 'text.secondary', fontSize: '0.68rem', display: 'block', fontWeight: 600 }}>
                   PREVIOUS MERKLE LINK HASH:
                 </Typography>
-                <Typography variant="caption" sx={{ color: '#94a3b8', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all' }}>
+                <Typography variant="caption" sx={{ color: '#8A8060', fontFamily: 'monospace', fontSize: '0.72rem', wordBreak: 'break-all', fontWeight: 600 }}>
                   {record.prev_block_hash}
                 </Typography>
               </Box>
@@ -216,14 +217,19 @@ export const EvidenceModal = ({ open, record, onClose }) => {
         </Grid>
       </DialogContent>
 
-      <DialogActions sx={{ p: 2, borderTop: '1px solid rgba(255, 255, 255, 0.08)', justifyContent: 'space-between' }}>
+      <DialogActions sx={{ p: 2, borderTop: '1px solid #C8C4B5', justifyContent: 'space-between' }}>
         <Chip
           icon={<QrCode2Icon />}
           label={record.tamper_flag ? 'INTEGRITY COMPROMISED' : 'BLOCKCHAIN INTEGRITY SEALED'}
-          color={record.tamper_flag ? 'error' : 'success'}
+          sx={{
+            bgcolor: record.tamper_flag ? 'rgba(217, 75, 75, 0.1)' : 'rgba(63, 122, 77, 0.1)',
+            color: record.tamper_flag ? '#D94B4B' : '#3F7A4D',
+            border: `1px solid ${record.tamper_flag ? '#D94B4B' : '#3F7A4D'}`,
+            fontWeight: 700,
+          }}
           size="small"
         />
-        <Button onClick={onClose} variant="contained" color="primary" size="small">
+        <Button onClick={onClose} variant="contained" sx={{ bgcolor: '#303722', color: '#FAF9F4', '&:hover': { bgcolor: '#1A1D16' } }} size="small">
           Close Dossier
         </Button>
       </DialogActions>

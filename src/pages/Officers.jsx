@@ -17,30 +17,42 @@ import {
   Divider,
   Grid,
   Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  MenuItem
 } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import SearchIcon from '@mui/icons-material/Search';
 import BadgeIcon from '@mui/icons-material/Badge';
 import CloseIcon from '@mui/icons-material/Close';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import SyncIcon from '@mui/icons-material/Sync';
+import GavelIcon from '@mui/icons-material/Gavel';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import DownloadIcon from '@mui/icons-material/Download';
+import { useNavigate } from 'react-router-dom';
 
 import { StatusBadge } from '../components/Common/StatusBadge';
 import { StateHandler } from '../components/Common/StateHandler';
 import { officerService } from '../services/officerService';
+import { useAuth } from '../context/AuthContext';
 
 export const Officers = () => {
+  const { user } = useAuth();
   const [officers, setOfficers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [selectedOfficer, setSelectedOfficer] = useState(null);
-  const [officerTests, setOfficerTests] = useState([]);
-  const [testsLoading, setTestsLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState({ badge_id: '', full_name: '', username: '', password: '', rank: 'INSPECTOR', station_code: '' });
+  const navigate = useNavigate();
 
   const fetchOfficers = async () => {
     try {
       setLoading(true);
-      const data = await officerService.getOfficers(search);
+      const data = await officerService.getOfficers({ search });
       setOfficers(data);
     } catch (err) {
       console.error(err);
@@ -53,46 +65,57 @@ export const Officers = () => {
     fetchOfficers();
   }, [search]);
 
-  const handleSelectOfficer = async (officer) => {
-    setSelectedOfficer(officer);
+  const handleCreateOfficer = async () => {
     try {
-      setTestsLoading(true);
-      const tests = await officerService.getOfficerTests(officer.id);
-      setOfficerTests(tests);
+      await officerService.createOfficer(formData);
+      setOpenModal(false);
+      setFormData({ badge_id: '', full_name: '', username: '', password: '', rank: 'INSPECTOR', station_code: '' });
+      fetchOfficers();
     } catch (err) {
-      console.error(err);
-    } finally {
-      setTestsLoading(false);
+      alert(err.response?.data?.detail || 'Error creating Officer');
     }
   };
+
 
   return (
     <Box>
       {/* Header & Search */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, flexWrap: 'wrap', gap: 2 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
             Field Officer Registry
           </Typography>
-          <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             Authorized narcotics inspection personnel & deployment status
           </Typography>
         </Box>
-
-        <TextField
-          size="small"
-          placeholder="Search by badge, name, station or rank..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ color: '#64748b' }} />
-              </InputAdornment>
-            ),
-          }}
-          sx={{ minWidth: 320 }}
-        />
+        
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <TextField
+            size="small"
+            placeholder="Search by badge, name, station or rank..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ color: 'text.secondary' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ minWidth: 320 }}
+          />
+          {user?.role === 'regional_admin' && (
+            <Button
+              variant="contained"
+              startIcon={<AddIcon />}
+              onClick={() => setOpenModal(true)}
+              sx={{ bgcolor: '#343A24', color: '#FAF9F4', fontWeight: 700, '&:hover': { bgcolor: '#1F241A' } }}
+            >
+              Add Officer
+            </Button>
+          )}
+        </Box>
       </Box>
 
       {/* Officers Table */}
@@ -122,27 +145,27 @@ export const Officers = () => {
                   <TableRow
                     key={officer.id}
                     hover
-                    onClick={() => handleSelectOfficer(officer)}
+                    onClick={() => navigate(`/officers/${officer.badge_id}`)}
                     sx={{ cursor: 'pointer' }}
                   >
-                    <TableCell sx={{ fontFamily: 'monospace', color: '#38bdf8', fontWeight: 600 }}>
+                    <TableCell sx={{ fontFamily: 'monospace', color: '#343A24', fontWeight: 700 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                         <BadgeIcon sx={{ fontSize: 16 }} />
                         {officer.badge_id}
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600, color: '#f8fafc' }}>
+                    <TableCell sx={{ fontWeight: 600, color: 'text.primary' }}>
                       {officer.name}
                     </TableCell>
-                    <TableCell sx={{ color: '#94a3b8' }}>{officer.rank}</TableCell>
-                    <TableCell sx={{ color: '#cbd5e1' }}>{officer.station}</TableCell>
-                    <TableCell align="center" sx={{ fontFamily: 'monospace', fontWeight: 700 }}>
+                    <TableCell sx={{ color: 'text.secondary' }}>{officer.rank}</TableCell>
+                    <TableCell sx={{ color: 'text.secondary' }}>{officer.station}</TableCell>
+                    <TableCell align="center" sx={{ fontFamily: 'monospace', fontWeight: 700, color: 'text.primary' }}>
                       {officer.total_tests}
                     </TableCell>
-                    <TableCell align="center" sx={{ fontFamily: 'monospace', color: '#ef4444', fontWeight: 700 }}>
+                    <TableCell align="center" sx={{ fontFamily: 'monospace', color: '#D94B4B', fontWeight: 700 }}>
                       {officer.positive_count}
                     </TableCell>
-                    <TableCell sx={{ color: '#94a3b8', fontSize: '0.8rem' }}>
+                    <TableCell sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
                       {officer.last_active}
                     </TableCell>
                     <TableCell align="center">
@@ -152,7 +175,7 @@ export const Officers = () => {
                       <Button
                         size="small"
                         endIcon={<ArrowForwardIosIcon sx={{ fontSize: 12 }} />}
-                        sx={{ color: '#38bdf8', fontSize: '0.75rem' }}
+                        sx={{ color: '#8A8060', fontSize: '0.75rem', fontWeight: 700 }}
                       >
                         Records
                       </Button>
@@ -165,105 +188,24 @@ export const Officers = () => {
         </TableContainer>
       </Card>
 
-      {/* Officer Drilldown Drawer */}
-      <Drawer
-        anchor="right"
-        open={Boolean(selectedOfficer)}
-        onClose={() => setSelectedOfficer(null)}
-        PaperProps={{
-          sx: {
-            width: { xs: '100%', sm: 460 },
-            bgcolor: '#0d1527',
-            borderLeft: '1px solid rgba(56, 189, 248, 0.25)',
-            p: 3,
-          },
-        }}
-      >
-        {selectedOfficer && (
-          <Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: '#f8fafc' }}>
-                Officer Dossier
-              </Typography>
-              <IconButton onClick={() => setSelectedOfficer(null)} sx={{ color: '#94a3b8' }}>
-                <CloseIcon />
-              </IconButton>
-            </Box>
 
-            <Box sx={{ p: 2, bgcolor: '#111b30', borderRadius: 2, mb: 3 }}>
-              <Typography variant="h6" sx={{ color: '#f8fafc', fontWeight: 700 }}>
-                {selectedOfficer.name}
-              </Typography>
-              <Typography variant="caption" sx={{ color: '#38bdf8', fontFamily: 'monospace', display: 'block', mb: 1 }}>
-                BADGE: {selectedOfficer.badge_id} • {selectedOfficer.rank}
-              </Typography>
-
-              <Divider sx={{ my: 1.5, borderColor: 'rgba(255,255,255,0.06)' }} />
-
-              <Grid container spacing={1.5}>
-                <Grid item xs={6}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>Station Unit</Typography>
-                  <Typography variant="body2" sx={{ color: '#f8fafc', fontWeight: 600 }}>{selectedOfficer.station}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>Device Model</Typography>
-                  <Typography variant="body2" sx={{ color: '#f8fafc', fontWeight: 600 }}>{selectedOfficer.device_model}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>Lifetime Tests</Typography>
-                  <Typography variant="body2" sx={{ color: '#38bdf8', fontWeight: 700, fontFamily: 'monospace' }}>
-                    {selectedOfficer.total_tests} Tests
-                  </Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>Positive Seizures</Typography>
-                  <Typography variant="body2" sx={{ color: '#ef4444', fontWeight: 700, fontFamily: 'monospace' }}>
-                    {selectedOfficer.positive_count} Seizures
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Box>
-
-            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5, color: '#cbd5e1' }}>
-              Recent Test Records by {selectedOfficer.name.split(' ')[1] || 'Officer'}
-            </Typography>
-
-            <StateHandler loading={testsLoading} empty={officerTests.length === 0}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                {officerTests.map((test) => (
-                  <Card key={test.id} sx={{ bgcolor: '#111b30', border: '1px solid rgba(255,255,255,0.07)' }}>
-                    <CardContent sx={{ p: '14px !important' }}>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 0.8 }}>
-                        <Typography variant="caption" sx={{ fontFamily: 'monospace', color: '#38bdf8' }}>
-                          {test.id}
-                        </Typography>
-                        <StatusBadge status={test.result} />
-                      </Box>
-                      <Typography variant="body2" sx={{ fontWeight: 700, color: '#f8fafc' }}>
-                        {test.substance}
-                      </Typography>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
-                        <Typography variant="caption" sx={{ color: '#64748b' }}>
-                          Weight: <span style={{ color: '#f8fafc' }}>{test.weight}</span>
-                        </Typography>
-                        <Typography variant="caption" sx={{ color: '#64748b' }}>
-                          Confidence: <span style={{ color: '#10b981' }}>{test.confidence}%</span>
-                        </Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 0.5 }}>
-                        <Typography variant="caption" sx={{ color: '#64748b' }}>{test.date}</Typography>
-                        <Typography variant="caption" sx={{ color: '#34d399', fontWeight: 600 }}>
-                          Hash: {test.hash_status}
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                ))}
-              </Box>
-            </StateHandler>
+      <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700, bgcolor: '#FAF9F4', color: '#343A24' }}>Add Field Officer</DialogTitle>
+        <DialogContent sx={{ bgcolor: '#FAF9F4', pt: '20px !important' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField label="Badge ID" fullWidth size="small" value={formData.badge_id} onChange={(e) => setFormData({ ...formData, badge_id: e.target.value })} />
+            <TextField label="Full Name" fullWidth size="small" value={formData.full_name} onChange={(e) => setFormData({ ...formData, full_name: e.target.value })} />
+            <TextField label="Username" fullWidth size="small" value={formData.username} onChange={(e) => setFormData({ ...formData, username: e.target.value })} />
+            <TextField label="Password" type="password" fullWidth size="small" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} />
+            <TextField label="Rank" fullWidth size="small" value={formData.rank} onChange={(e) => setFormData({ ...formData, rank: e.target.value })} />
+            <TextField label="Station Code" fullWidth size="small" value={formData.station_code} onChange={(e) => setFormData({ ...formData, station_code: e.target.value })} />
           </Box>
-        )}
-      </Drawer>
+        </DialogContent>
+        <DialogActions sx={{ bgcolor: '#FAF9F4', p: 2 }}>
+          <Button onClick={() => setOpenModal(false)} sx={{ color: 'text.secondary' }}>Cancel</Button>
+          <Button onClick={handleCreateOfficer} variant="contained" sx={{ bgcolor: '#343A24', color: '#FAF9F4', '&:hover': { bgcolor: '#1F241A' } }}>Create</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

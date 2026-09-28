@@ -17,14 +17,14 @@ export const SubstanceChart = ({ data = [] }) => {
       {
         data: data.map((d) => d.count),
         backgroundColor: [
-          '#ef4444', // Heroin (Red)
-          '#38bdf8', // Cocaine (Sky blue)
-          '#a855f7', // Meth (Purple)
-          '#10b981', // Cannabis (Emerald)
-          '#f59e0b', // Synthetic (Amber)
-          '#64748b', // Opium (Slate)
+          '#D94B4B', // Heroin (Red)
+          '#343A24', // Cocaine (Primary Dark)
+          '#8A8060', // Meth (Khaki)
+          '#3E7A4A', // Cannabis (Success Green)
+          '#C68A22', // Synthetic (Warning)
+          '#C8C4B5', // Opium (Border color)
         ],
-        borderColor: '#0f172a',
+        borderColor: '#FAF9F4',
         borderWidth: 2,
         hoverOffset: 6,
       },
@@ -38,7 +38,7 @@ export const SubstanceChart = ({ data = [] }) => {
       legend: {
         position: 'right',
         labels: {
-          color: '#cbd5e1',
+          color: '#1F241A',
           boxWidth: 12,
           padding: 14,
           font: {
@@ -48,10 +48,10 @@ export const SubstanceChart = ({ data = [] }) => {
         },
       },
       tooltip: {
-        backgroundColor: '#0f172a',
-        titleColor: '#f8fafc',
-        bodyColor: '#cbd5e1',
-        borderColor: 'rgba(56, 189, 248, 0.3)',
+        backgroundColor: '#FAF9F4',
+        titleColor: '#1F241A',
+        bodyColor: '#68705C',
+        borderColor: '#C8C4B5',
         borderWidth: 1,
         padding: 10,
         callbacks: {
@@ -81,10 +81,10 @@ export const SubstanceChart = ({ data = [] }) => {
           pointerEvents: 'none',
         }}
       >
-        <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc', fontFamily: 'var(--font-mono)' }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: '#1F241A', fontFamily: 'var(--font-mono)' }}>
           {data.reduce((acc, curr) => acc + curr.count, 0)}
         </Typography>
-        <Typography variant="caption" sx={{ color: '#64748b', fontSize: '0.7rem', textTransform: 'uppercase' }}>
+        <Typography variant="caption" sx={{ color: '#68705C', fontSize: '0.7rem', textTransform: 'uppercase', fontWeight: 600 }}>
           Seizures
         </Typography>
       </Box>

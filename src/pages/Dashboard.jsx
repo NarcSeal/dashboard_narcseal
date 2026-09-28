@@ -65,15 +65,15 @@ export const Dashboard = () => {
       {/* Page Title & Refresh */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc' }}>
+          <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
             National Narcotics Command Center
           </Typography>
-          <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+          <Typography variant="caption" sx={{ color: 'text.secondary' }}>
             Live cryptographic test telemetry, zonal heat mapping & substance intelligence
           </Typography>
         </Box>
         <Tooltip title="Refresh Dashboard Telemetry">
-          <IconButton onClick={fetchDashboardData} sx={{ color: '#38bdf8', bgcolor: 'rgba(56, 189, 248, 0.1)' }}>
+          <IconButton onClick={fetchDashboardData} sx={{ color: '#343A24', bgcolor: 'rgba(52, 58, 36, 0.1)' }}>
             <RefreshIcon />
           </IconButton>
         </Tooltip>
@@ -84,39 +84,39 @@ export const Dashboard = () => {
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
             title="TOTAL TESTS TODAY"
-            value={stats?.total_tests_today ?? 142}
-            trend={stats?.tests_change_pct ?? '+18.4%'}
+            value={stats?.total_tests_today ?? 0}
+            trend={stats?.tests_change_pct ?? '0%'}
             subtitle="vs yesterday"
             icon={ScienceIcon}
-            color="#38bdf8"
+            color="#343A24"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
             title="POSITIVE SEIZURES"
-            value={stats?.positive_results ?? 39}
-            trend={stats?.positive_ratio_pct ?? '27.4%'}
+            value={stats?.positive_results ?? 0}
+            trend={stats?.positive_ratio_pct ?? '0%'}
             subtitle="positivity rate"
             icon={WarningAmberIcon}
-            color="#ef4444"
+            color="#D94B4B"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
             title="ACTIVE FIELD OFFICERS"
-            value={stats?.active_officers ?? 48}
+            value={stats?.active_officers ?? 0}
             subtitle="across 14 zones"
             icon={PeopleAltIcon}
-            color="#10b981"
+            color="#3E7A4A"
           />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
           <StatCard
             title="PENDING SYNCS"
-            value={stats?.pending_syncs ?? 6}
+            value={stats?.pending_syncs ?? 0}
             subtitle="awaiting mesh lock"
             icon={SyncProblemIcon}
-            color="#f59e0b"
+            color="#C68A22"
           />
         </Grid>
       </Grid>
@@ -125,17 +125,17 @@ export const Dashboard = () => {
       <StateHandler loading={loading} error={error} onRetry={fetchDashboardData}>
         <Grid container spacing={3}>
           {/* Interactive Leaflet India Heatmap */}
-          <Grid item xs={12} lg={8}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Grid item xs={12} md={5}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 480 }}>
               <CardHeader
-                avatar={<LayersIcon sx={{ color: '#38bdf8' }} />}
+                avatar={<LayersIcon sx={{ color: '#8A8060' }} />}
                 title={
-                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#f8fafc' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     All-India Field Test Heatmap & GPS Coordinates
                   </Typography>
                 }
                 subheader={
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     Real-time field test coordinates, verified by tamper-evident GPS hardware seals
                   </Typography>
                 }
@@ -148,17 +148,17 @@ export const Dashboard = () => {
           </Grid>
 
           {/* Substance Breakdown Chart */}
-          <Grid item xs={12} lg={4}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <Grid item xs={12} md={3}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 480 }}>
               <CardHeader
-                avatar={<PieChartIcon sx={{ color: '#a855f7' }} />}
+                avatar={<PieChartIcon sx={{ color: '#8A8060' }} />}
                 title={
-                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#f8fafc' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     Substance Breakdown
                   </Typography>
                 }
                 subheader={
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     Classification distribution of analyzed contraband
                   </Typography>
                 }
@@ -170,17 +170,17 @@ export const Dashboard = () => {
           </Grid>
 
           {/* 30-Day Tests Timeline Line Chart */}
-          <Grid item xs={12}>
-            <Card>
+          <Grid item xs={12} md={4}>
+            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 480 }}>
               <CardHeader
-                avatar={<TimelineIcon sx={{ color: '#38bdf8' }} />}
+                avatar={<TimelineIcon sx={{ color: '#8A8060' }} />}
                 title={
-                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: '#f8fafc' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary' }}>
                     30-Day Testing & Seizure Timeline
                   </Typography>
                 }
                 subheader={
-                  <Typography variant="caption" sx={{ color: '#64748b' }}>
+                  <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                     Historical trend of tests executed vs. confirmed positive narcotics seizures
                   </Typography>
                 }

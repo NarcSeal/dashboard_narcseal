@@ -3,8 +3,8 @@ import { Navigate, Outlet } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
 import { useAuth } from '../../context/AuthContext';
 
-export const ProtectedRoute = () => {
-  const { isAuthenticated, loading } = useAuth();
+export const ProtectedRoute = ({ allowedRoles }) => {
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) {
     return (
@@ -16,6 +16,10 @@ export const ProtectedRoute = () => {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

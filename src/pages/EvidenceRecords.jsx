@@ -70,16 +70,16 @@ export const EvidenceRecords = () => {
     <Box>
       {/* Title */}
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc' }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
           Cryptographic Evidence Ledger
         </Typography>
-        <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           Tamper-evident narcotics seizure logs, optical spectrums, GPS fixes, and SHA-256 block receipts
         </Typography>
       </Box>
 
       {/* Filter Toolbar */}
-      <Card sx={{ mb: 3, p: 2, bgcolor: '#0f172a' }}>
+      <Card sx={{ mb: 3, p: 2, bgcolor: '#FAF9F4', border: '1px solid #C8C4B5', boxShadow: 'none' }}>
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} md={4}>
             <TextField
@@ -91,7 +91,7 @@ export const EvidenceRecords = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: '#64748b' }} />
+                    <SearchIcon sx={{ color: 'text.secondary' }} />
                   </InputAdornment>
                 ),
               }}
@@ -100,7 +100,7 @@ export const EvidenceRecords = () => {
 
           <Grid item xs={6} md={2}>
             <FormControl fullWidth size="small">
-              <InputLabel sx={{ color: '#94a3b8' }}>Result</InputLabel>
+              <InputLabel sx={{ color: 'text.secondary' }}>Result</InputLabel>
               <Select
                 value={resultFilter}
                 label="Result"
@@ -115,7 +115,7 @@ export const EvidenceRecords = () => {
 
           <Grid item xs={6} md={2.5}>
             <FormControl fullWidth size="small">
-              <InputLabel sx={{ color: '#94a3b8' }}>Substance</InputLabel>
+              <InputLabel sx={{ color: 'text.secondary' }}>Substance</InputLabel>
               <Select
                 value={substanceFilter}
                 label="Substance"
@@ -134,7 +134,7 @@ export const EvidenceRecords = () => {
 
           <Grid item xs={6} md={2.5}>
             <FormControl fullWidth size="small">
-              <InputLabel sx={{ color: '#94a3b8' }}>Station</InputLabel>
+              <InputLabel sx={{ color: 'text.secondary' }}>Station</InputLabel>
               <Select
                 value={stationFilter}
                 label="Station"
@@ -157,7 +157,7 @@ export const EvidenceRecords = () => {
               variant="outlined"
               size="small"
               onClick={resetFilters}
-              sx={{ color: '#94a3b8', borderColor: 'rgba(255,255,255,0.15)', height: 40 }}
+              sx={{ color: '#343A24', borderColor: '#C8C4B5', bgcolor: '#F3F0E5', height: 40, fontWeight: 700 }}
             >
               Reset
             </Button>
@@ -197,31 +197,31 @@ export const EvidenceRecords = () => {
                       bgcolor: rec.tamper_flag ? 'rgba(239, 68, 68, 0.04)' : 'inherit',
                     }}
                   >
-                    <TableCell sx={{ fontFamily: 'monospace', color: '#38bdf8', fontWeight: 700 }}>
+                    <TableCell sx={{ fontFamily: 'monospace', color: '#343A24', fontWeight: 700 }}>
                       {rec.id}
                     </TableCell>
-                    <TableCell sx={{ color: '#cbd5e1', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+                    <TableCell sx={{ color: 'text.secondary', fontSize: '0.8rem', fontFamily: 'monospace' }}>
                       {rec.timestamp}
                     </TableCell>
                     <TableCell>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Typography variant="body2" sx={{ fontWeight: 600, color: '#f8fafc' }}>
+                        <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary' }}>
                           {rec.substance}
                         </Typography>
                         <StatusBadge status={rec.result} />
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ fontFamily: 'monospace', color: '#10b981', fontWeight: 600 }}>
+                    <TableCell sx={{ fontFamily: 'monospace', color: '#3E7A4A', fontWeight: 600 }}>
                       {rec.confidence_score}%
                     </TableCell>
-                    <TableCell sx={{ fontFamily: 'monospace', color: '#f59e0b', fontWeight: 600 }}>
+                    <TableCell sx={{ fontFamily: 'monospace', color: '#C68A22', fontWeight: 600 }}>
                       {rec.weight_grams} g
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2" sx={{ color: '#f8fafc', fontSize: '0.85rem' }}>
+                      <Typography variant="body2" sx={{ color: 'text.primary', fontSize: '0.85rem' }}>
                         {rec.officer_name}
                       </Typography>
-                      <Typography variant="caption" sx={{ color: '#64748b' }}>
+                      <Typography variant="caption" sx={{ color: 'text.secondary' }}>
                         {rec.station}
                       </Typography>
                     </TableCell>
@@ -230,7 +230,7 @@ export const EvidenceRecords = () => {
                         variant="caption"
                         sx={{
                           fontFamily: 'monospace',
-                          color: rec.tamper_flag ? '#ef4444' : '#64748b',
+                          color: rec.tamper_flag ? '#D94B4B' : 'text.secondary',
                           display: 'block',
                           maxWidth: 160,
                           overflow: 'hidden',
@@ -246,7 +246,7 @@ export const EvidenceRecords = () => {
                         size="small"
                         variant="outlined"
                         startIcon={<VisibilityIcon />}
-                        sx={{ color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)', fontSize: '0.72rem' }}
+                        sx={{ color: '#1F241A', borderColor: '#C8C4B5', bgcolor: '#F3F0E5', fontSize: '0.72rem', fontWeight: 600 }}
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedRecord(rec);

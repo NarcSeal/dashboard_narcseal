@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Box,
   Card,
@@ -24,8 +25,9 @@ import { exportService } from '../services/exportService';
 import { officerService } from '../services/officerService';
 
 export const ChainVerifier = () => {
+  const location = useLocation();
   const [officers, setOfficers] = useState([]);
-  const [selectedOfficerId, setSelectedOfficerId] = useState('OFF-01');
+  const [selectedOfficerId, setSelectedOfficerId] = useState(location.state?.officerId || '');
   const [chain, setChain] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,9 +36,13 @@ export const ChainVerifier = () => {
     const loadOfficers = async () => {
       const data = await officerService.getOfficers();
       setOfficers(data);
+      // Auto select first officer if none provided in state
+      if (!location.state?.officerId && data.length > 0) {
+        setSelectedOfficerId(data[0].id);
+      }
     };
     loadOfficers();
-  }, []);
+  }, [location.state?.officerId]);
 
   // Fetch Merkle hash chain for selected officer
   const verifyChain = async (officerId) => {
@@ -65,21 +71,21 @@ export const ChainVerifier = () => {
     <Box>
       {/* Title */}
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" sx={{ fontWeight: 800, color: '#f8fafc' }}>
+        <Typography variant="h5" sx={{ fontWeight: 800, color: 'text.primary' }}>
           Cryptographic Merkle Hash Chain Verifier
         </Typography>
-        <Typography variant="caption" sx={{ color: '#94a3b8' }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           Validate chronological block ancestry, SHA-256 forward links, and hardware private key attestation
         </Typography>
       </Box>
 
       {/* Control & Summary Card */}
-      <Card sx={{ mb: 4, bgcolor: '#0f172a', border: '1px solid rgba(255,255,255,0.08)' }}>
+      <Card sx={{ mb: 4, bgcolor: '#FAF9F4', border: '1px solid #C8C4B5', boxShadow: 'none' }}>
         <CardContent sx={{ p: 2.5 }}>
           <Grid container spacing={2} alignItems="center" justifyContent="space-between">
             <Grid item xs={12} md={5}>
               <FormControl fullWidth size="small">
-                <InputLabel sx={{ color: '#94a3b8' }}>Select Officer Ledger Chain</InputLabel>
+                <InputLabel sx={{ color: 'text.secondary' }}>Select Officer Ledger Chain</InputLabel>
                 <Select
                   value={selectedOfficerId}
                   label="Select Officer Ledger Chain"
@@ -103,8 +109,14 @@ export const ChainVerifier = () => {
                     ? 'CHAIN INTEGRITY COMPROMISED (TAMPER DETECTED)'
                     : 'CRYPTOGRAPHIC CHAIN VALIDATED (100% UNBROKEN)'
                 }
-                color={hasTampering ? 'error' : 'success'}
-                sx={{ fontWeight: 700, fontFamily: 'monospace', py: 2 }}
+                sx={{
+                  fontWeight: 700,
+                  fontFamily: 'monospace',
+                  py: 2,
+                  bgcolor: hasTampering ? 'rgba(217, 75, 75, 0.1)' : 'rgba(62, 122, 74, 0.1)',
+                  color: hasTampering ? '#D94B4B' : '#3E7A4A',
+                  border: `1px solid ${hasTampering ? '#D94B4B' : '#3E7A4A'}`,
+                }}
               />
 
               <Button
@@ -112,7 +124,7 @@ export const ChainVerifier = () => {
                 size="small"
                 startIcon={<RefreshIcon />}
                 onClick={() => verifyChain(selectedOfficerId)}
-                sx={{ color: '#38bdf8', borderColor: 'rgba(56, 189, 248, 0.3)' }}
+                sx={{ color: '#1F241A', borderColor: '#C8C4B5', bgcolor: '#F3F0E5', fontWeight: 600 }}
               >
                 Re-Verify
               </Button>

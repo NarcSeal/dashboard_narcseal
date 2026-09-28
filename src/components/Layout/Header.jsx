@@ -66,13 +66,13 @@ export const Header = ({ onMobileToggle }) => {
     <AppBar
       position="sticky"
       sx={{
-        bgcolor: '#0D1117',
-        borderBottom: '1px solid #374151',
+        bgcolor: '#F7F5EC', // WARM IVORY
+        borderBottom: '1px solid #C8C4B5',
         boxShadow: 'none',
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1.5, md: 3 }, minHeight: '56px !important' }}>
+      <Toolbar sx={{ justifyContent: 'space-between', px: { xs: 1.5, md: 3 }, minHeight: '66px !important' }}>
         {/* Left: Menu + Page Title */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
           <IconButton
@@ -89,7 +89,7 @@ export const Header = ({ onMobileToggle }) => {
               variant="body2"
               sx={{
                 fontWeight: 700,
-                color: '#F9FAFB',
+                color: '#1F241A', // PRIMARY TEXT
                 fontSize: '0.9rem',
                 letterSpacing: '0.06em',
               }}
@@ -107,11 +107,11 @@ export const Header = ({ onMobileToggle }) => {
               display: { xs: 'none', sm: 'flex' },
               alignItems: 'center',
               gap: 0.8,
-              bgcolor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(55, 65, 81, 0.5)',
+              bgcolor: '#F3F0E5', // CREAM
+              border: '1px solid #C8C4B5',
               px: 1.5,
               py: 0.5,
-              borderRadius: '10px',
+              borderRadius: '6px',
             }}
           >
             <Typography
@@ -119,20 +119,20 @@ export const Header = ({ onMobileToggle }) => {
               sx={{
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 600,
-                color: '#9CA3AF',
+                color: '#68705C', // SECONDARY TEXT
                 fontSize: '0.72rem',
                 letterSpacing: '0.02em',
               }}
             >
               {dateStr}
             </Typography>
-            <Box sx={{ width: 1, height: 14, bgcolor: '#374151' }} />
+            <Box sx={{ width: 1, height: 14, bgcolor: '#C8C4B5' }} />
             <Typography
               variant="caption"
               sx={{
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 700,
-                color: '#06B6D4',
+                color: '#1F241A', // PRIMARY TEXT
                 fontSize: '0.72rem',
               }}
             >
@@ -143,32 +143,33 @@ export const Header = ({ onMobileToggle }) => {
           {/* Mesh Status */}
           <Tooltip title="Real-time Cryptographic Node Connected">
             <Chip
-              icon={<Wifi size={13} style={{ color: '#22C55E' }} />}
+              icon={<Wifi size={13} style={{ color: '#FAF9F4' }} />}
               label="MESH LIVE"
               size="small"
               sx={{
                 display: { xs: 'none', md: 'flex' },
-                bgcolor: 'rgba(34, 197, 94, 0.08)',
-                border: '1px solid rgba(34, 197, 94, 0.2)',
-                color: '#4ADE80',
+                bgcolor: '#35633F', // DARK SUCCESS
+                border: '1px solid #252B1C', 
+                color: '#FAF9F4', 
                 fontFamily: 'var(--font-mono)',
                 fontSize: '0.68rem',
                 fontWeight: 700,
                 letterSpacing: '0.03em',
                 height: 28,
+                borderRadius: '6px',
               }}
             />
           </Tooltip>
 
           {/* Notification Bell */}
           <Tooltip title="System Alerts">
-            <IconButton sx={{ color: '#9CA3AF' }}>
+            <IconButton sx={{ color: '#68705C' }}>
               <Badge
                 badgeContent={3}
                 sx={{
                   '& .MuiBadge-badge': {
-                    bgcolor: '#EF4444',
-                    color: '#fff',
+                    bgcolor: '#D94B4B', // DANGER Red
+                    color: '#FAF9F4',
                     fontSize: '0.65rem',
                     minWidth: 16,
                     height: 16,
@@ -189,23 +190,23 @@ export const Header = ({ onMobileToggle }) => {
               ml: 0.5,
               px: 1.2,
               py: 0.5,
-              borderRadius: '10px',
-              bgcolor: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(55, 65, 81, 0.5)',
+              borderRadius: '6px',
+              bgcolor: '#F3F0E5',
+              border: '1px solid #C8C4B5',
             }}
           >
-            <Typography variant="caption" sx={{ color: '#9CA3AF', fontWeight: 600, fontSize: '0.72rem' }}>
+            <Typography variant="caption" sx={{ color: '#68705C', fontWeight: 600, fontSize: '0.72rem' }}>
               NCB-ADMIN
             </Typography>
-            <Box sx={{ width: 1, height: 14, bgcolor: '#374151' }} />
-            <Typography variant="caption" sx={{ color: '#F9FAFB', fontWeight: 600, fontSize: '0.72rem' }}>
+            <Box sx={{ width: 1, height: 14, bgcolor: '#C8C4B5' }} />
+            <Typography variant="caption" sx={{ color: '#1F241A', fontWeight: 600, fontSize: '0.72rem' }}>
               {user?.name?.split(' ')[0] || 'Aakanksha'}
             </Typography>
           </Box>
 
           {/* Settings */}
           <Tooltip title="Settings">
-            <IconButton sx={{ color: '#9CA3AF' }}>
+            <IconButton sx={{ color: '#68705C' }}>
               <Settings size={17} />
             </IconButton>
           </Tooltip>
@@ -215,11 +216,11 @@ export const Header = ({ onMobileToggle }) => {
             sx={{
               width: 30,
               height: 30,
-              bgcolor: 'rgba(6, 182, 212, 0.15)',
-              color: '#06B6D4',
+              bgcolor: '#343A24', // PRIMARY DARK
+              color: '#FAF9F4', // WARM WHITE
               fontSize: '0.75rem',
               fontWeight: 700,
-              border: '1px solid rgba(6, 182, 212, 0.3)',
+              borderRadius: '6px',
             }}
           >
             {(user?.name?.[0] || 'A').toUpperCase()}

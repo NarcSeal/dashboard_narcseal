@@ -7,15 +7,15 @@ import {
 } from 'lucide-react';
 
 const STATUS_CONFIG = {
-  POSITIVE: { color: '#EF4444', bg: 'rgba(239, 68, 68, 0.12)', border: 'rgba(239, 68, 68, 0.3)', label: 'POSITIVE' },
-  NEGATIVE: { color: '#22C55E', bg: 'rgba(34, 197, 94, 0.12)', border: 'rgba(34, 197, 94, 0.3)', label: 'NEGATIVE' },
-  INCONCLUSIVE: { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.12)', border: 'rgba(245, 158, 11, 0.3)', label: 'INCONCLUSIVE' },
-  VERIFIED: { color: '#22C55E', bg: 'rgba(34, 197, 94, 0.12)', border: 'rgba(34, 197, 94, 0.3)', label: 'VERIFIED', Icon: ShieldCheck },
-  PENDING: { color: '#F59E0B', bg: 'rgba(245, 158, 11, 0.12)', border: 'rgba(245, 158, 11, 0.3)', label: 'PENDING', Icon: AlertTriangle },
-  TAMPERED: { color: '#EF4444', bg: 'rgba(239, 68, 68, 0.12)', border: 'rgba(239, 68, 68, 0.3)', label: 'TAMPERED', Icon: ShieldAlert },
-  ACTIVE: { color: '#22C55E', bg: 'rgba(34, 197, 94, 0.12)', border: 'rgba(34, 197, 94, 0.3)', label: 'ACTIVE' },
-  OFFLINE: { color: '#6B7280', bg: 'rgba(107, 114, 128, 0.12)', border: 'rgba(107, 114, 128, 0.3)', label: 'OFFLINE' },
-  SYNCED: { color: '#06B6D4', bg: 'rgba(6, 182, 212, 0.12)', border: 'rgba(6, 182, 212, 0.3)', label: 'SYNCED' },
+  POSITIVE: { color: '#D94B4B', bg: 'rgba(217, 75, 75, 0.12)', border: 'rgba(217, 75, 75, 0.3)', label: 'POSITIVE' },
+  NEGATIVE: { color: '#3F7A4D', bg: 'rgba(63, 122, 77, 0.12)', border: 'rgba(63, 122, 77, 0.3)', label: 'NEGATIVE' },
+  INCONCLUSIVE: { color: '#C78B21', bg: 'rgba(199, 139, 33, 0.12)', border: 'rgba(199, 139, 33, 0.3)', label: 'INCONCLUSIVE' },
+  VERIFIED: { color: '#3F7A4D', bg: 'rgba(63, 122, 77, 0.12)', border: 'rgba(63, 122, 77, 0.3)', label: 'VERIFIED', Icon: ShieldCheck },
+  PENDING: { color: '#C78B21', bg: 'rgba(199, 139, 33, 0.12)', border: 'rgba(199, 139, 33, 0.3)', label: 'PENDING', Icon: AlertTriangle },
+  TAMPERED: { color: '#D94B4B', bg: 'rgba(217, 75, 75, 0.12)', border: 'rgba(217, 75, 75, 0.3)', label: 'TAMPERED', Icon: ShieldAlert },
+  ACTIVE: { color: '#3F7A4D', bg: 'rgba(63, 122, 77, 0.12)', border: 'rgba(63, 122, 77, 0.3)', label: 'ACTIVE' },
+  OFFLINE: { color: '#85877A', bg: 'rgba(133, 135, 122, 0.12)', border: 'rgba(133, 135, 122, 0.3)', label: 'OFFLINE' },
+  SYNCED: { color: '#303722', bg: 'rgba(48, 55, 34, 0.12)', border: 'rgba(48, 55, 34, 0.3)', label: 'SYNCED' },
 };
 
 export const StatusBadge = ({ status }) => {
@@ -23,9 +23,9 @@ export const StatusBadge = ({ status }) => {
   const key = (status || '').toUpperCase().replace(/[^A-Z]/g, '');
   const matchedKey = Object.keys(STATUS_CONFIG).find((k) => key.includes(k));
   const config = STATUS_CONFIG[matchedKey] || {
-    color: '#9CA3AF',
-    bg: 'rgba(156, 163, 175, 0.12)',
-    border: 'rgba(156, 163, 175, 0.3)',
+    color: '#85877A',
+    bg: 'rgba(133, 135, 122, 0.12)',
+    border: 'rgba(133, 135, 122, 0.3)',
     label: status || 'UNKNOWN',
   };
 

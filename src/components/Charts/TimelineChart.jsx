@@ -31,25 +31,25 @@ export const TimelineChart = ({ data = [] }) => {
       {
         label: 'Total Field Tests',
         data: data.map((d) => d.total),
-        borderColor: '#38bdf8',
-        backgroundColor: 'rgba(56, 189, 248, 0.08)',
+        borderColor: '#343A24',
+        backgroundColor: 'rgba(52, 58, 36, 0.08)',
         fill: true,
         tension: 0.35,
         borderWidth: 2,
-        pointBackgroundColor: '#38bdf8',
-        pointBorderColor: '#0f172a',
+        pointBackgroundColor: '#343A24',
+        pointBorderColor: '#FAF9F4',
         pointHoverRadius: 5,
       },
       {
         label: 'Positive Contraband Seizures',
         data: data.map((d) => d.positive),
-        borderColor: '#ef4444',
-        backgroundColor: 'rgba(239, 68, 68, 0.05)',
+        borderColor: '#D94B4B',
+        backgroundColor: 'rgba(217, 75, 75, 0.05)',
         fill: true,
         tension: 0.35,
         borderWidth: 2,
-        pointBackgroundColor: '#ef4444',
-        pointBorderColor: '#0f172a',
+        pointBackgroundColor: '#D94B4B',
+        pointBorderColor: '#FAF9F4',
         pointHoverRadius: 5,
       },
     ],
@@ -63,7 +63,7 @@ export const TimelineChart = ({ data = [] }) => {
         position: 'top',
         align: 'end',
         labels: {
-          color: '#cbd5e1',
+          color: '#1F241A',
           boxWidth: 12,
           font: {
             size: 11,
@@ -72,10 +72,10 @@ export const TimelineChart = ({ data = [] }) => {
         },
       },
       tooltip: {
-        backgroundColor: '#0f172a',
-        titleColor: '#f8fafc',
-        bodyColor: '#cbd5e1',
-        borderColor: 'rgba(56, 189, 248, 0.3)',
+        backgroundColor: '#FAF9F4',
+        titleColor: '#1F241A',
+        bodyColor: '#68705C',
+        borderColor: '#C8C4B5',
         borderWidth: 1,
         padding: 10,
       },
@@ -83,10 +83,10 @@ export const TimelineChart = ({ data = [] }) => {
     scales: {
       x: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.04)',
+          color: 'rgba(31, 36, 26, 0.05)',
         },
         ticks: {
-          color: '#64748b',
+          color: '#68705C',
           font: {
             size: 10,
           },
@@ -94,10 +94,10 @@ export const TimelineChart = ({ data = [] }) => {
       },
       y: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.05)',
+          color: 'rgba(31, 36, 26, 0.05)',
         },
         ticks: {
-          color: '#64748b',
+          color: '#68705C',
           font: {
             size: 10,
           },

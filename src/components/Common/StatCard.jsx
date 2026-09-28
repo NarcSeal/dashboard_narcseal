@@ -46,19 +46,20 @@ export const StatCard = ({ title, value, subtitle, icon: Icon, color = '#06B6D4'
       whileHover={{ y: -3, transition: { duration: 0.2 } }}
       className={pulse ? 'amber-pulse' : ''}
       sx={{
-        backgroundColor: '#111827',
-        border: '1px solid #374151',
-        borderRadius: '16px',
+        backgroundColor: '#FAF9F4', // WARM WHITE
+        border: '1px solid #C8C4B5',
+        borderRadius: '8px',
         position: 'relative',
         overflow: 'hidden',
         transition: 'border-color 0.2s ease',
+        boxShadow: '0 2px 4px rgba(31, 36, 26, 0.05)',
         '&:hover': {
           borderColor: color,
         },
       }}
     >
       {/* Top accent bar */}
-      <Box sx={{ height: '3px', width: '100%', background: `linear-gradient(90deg, ${color}, transparent)` }} />
+      <Box sx={{ height: '3px', width: '100%', backgroundColor: color }} />
 
       <CardContent sx={{ p: 2.5 }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
@@ -66,7 +67,7 @@ export const StatCard = ({ title, value, subtitle, icon: Icon, color = '#06B6D4'
             <Typography
               variant="caption"
               sx={{
-                color: '#9CA3AF',
+                color: '#68705C', // SECONDARY TEXT
                 fontWeight: 600,
                 letterSpacing: '0.06em',
                 fontSize: '0.7rem',
@@ -79,7 +80,7 @@ export const StatCard = ({ title, value, subtitle, icon: Icon, color = '#06B6D4'
               sx={{
                 fontWeight: 800,
                 mt: 0.5,
-                color: '#F9FAFB',
+                color: '#1F241A', // PRIMARY TEXT
                 fontFamily: 'var(--font-mono)',
                 fontSize: '2rem',
               }}
@@ -90,9 +91,9 @@ export const StatCard = ({ title, value, subtitle, icon: Icon, color = '#06B6D4'
           <Box
             sx={{
               p: 1.2,
-              borderRadius: '12px',
+              borderRadius: '8px',
               backgroundColor: `${color}15`,
-              border: `1px solid ${color}25`,
+              border: `1px solid ${color}30`,
               color: color,
               display: 'flex',
               alignItems: 'center',
@@ -111,7 +112,7 @@ export const StatCard = ({ title, value, subtitle, icon: Icon, color = '#06B6D4'
               </Typography>
             )}
             {subtitle && (
-              <Typography variant="caption" sx={{ color: '#6B7280', fontSize: '0.72rem' }}>
+              <Typography variant="caption" sx={{ color: '#8A8060', fontSize: '0.72rem' }}>
                 {subtitle}
               </Typography>
             )}

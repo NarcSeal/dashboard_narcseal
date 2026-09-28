@@ -12,7 +12,6 @@ import {
   Divider,
   Chip,
   Button,
-  IconButton,
 } from '@mui/material';
 import {
   LayoutDashboard,
@@ -23,19 +22,29 @@ import {
   LogOut,
   Settings,
   Shield,
-  Wifi,
+  MapPin,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
-const NAV_ITEMS = [
+const MAIN_ADMIN_NAV = [
   { label: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { label: 'Regional Admins', path: '/regional-admins', icon: Shield },
+  { label: 'Regions', path: '/regions', icon: MapPin },
   { label: 'Officers', path: '/officers', icon: Users },
   { label: 'Evidence Records', path: '/evidence', icon: FileSearch },
   { label: 'Chain Verifier', path: '/chain-verifier', icon: LinkIcon },
   { label: 'Court Export', path: '/court-export', icon: FileDown },
 ];
 
-export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
+const REGIONAL_ADMIN_NAV = [
+  { label: 'Dashboard', path: '/', icon: LayoutDashboard },
+  { label: 'My Officers', path: '/officers', icon: Users },
+  { label: 'Test Records', path: '/evidence', icon: FileSearch },
+  { label: 'Chain Verifier', path: '/chain-verifier', icon: LinkIcon },
+  { label: 'Court Export', path: '/court-export', icon: FileDown },
+];
+
+export const Sidebar = ({ width = 240, mobileOpen, onMobileClose }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -44,21 +53,23 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
     navigate('/login');
   };
 
+  const navItems = user?.role === 'main_admin' ? MAIN_ADMIN_NAV : REGIONAL_ADMIN_NAV;
+
   const drawerContent = (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', bgcolor: '#0D1117' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', bgcolor: '#303722' }}>
       {/* ── NarcSeal Brand Header ── */}
       <Box sx={{ p: 2.5, display: 'flex', alignItems: 'center', gap: 1.5 }}>
         <Box
           sx={{
             width: 42,
             height: 42,
-            borderRadius: '12px',
-            bgcolor: 'rgba(6, 182, 212, 0.1)',
-            border: '1px solid rgba(6, 182, 212, 0.3)',
+            borderRadius: '8px',
+            bgcolor: 'transparent',
+            border: 'none',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#06B6D4',
+            color: '#FAF9F4',
           }}
         >
           <Shield size={22} />
@@ -66,20 +77,20 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
         <Box>
           <Typography
             sx={{
-              fontFamily: '"Orbitron", sans-serif',
+              fontFamily: '"Inter", sans-serif',
               fontWeight: 800,
               fontSize: '1.1rem',
               letterSpacing: '0.04em',
               lineHeight: 1.1,
-              color: '#F9FAFB',
+              color: '#FAF9F4',
             }}
           >
-            NARC<span style={{ color: '#06B6D4' }}>SEAL</span>
+            NARC<span style={{ color: '#D8D1B8' }}>SEAL</span>
           </Typography>
           <Typography
             variant="caption"
             sx={{
-              color: '#6B7280',
+              color: '#D8D1B8',
               fontSize: '0.65rem',
               letterSpacing: '0.1em',
               textTransform: 'uppercase',
@@ -91,11 +102,11 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
         </Box>
       </Box>
 
-      <Divider sx={{ borderColor: '#374151' }} />
+      <Divider sx={{ borderColor: '#252A1C' }} />
 
       {/* ── Navigation Links ── */}
       <List sx={{ px: 1.5, py: 2, flexGrow: 1 }}>
-        {NAV_ITEMS.map((item) => {
+        {navItems.map((item) => {
           const Icon = item.icon;
           return (
             <ListItem key={item.path} disablePadding sx={{ mb: 0.5 }}>
@@ -105,25 +116,25 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
                 end={item.path === '/'}
                 onClick={onMobileClose}
                 sx={{
-                  borderRadius: '12px',
-                  py: 1.1,
+                  borderRadius: '6px',
+                  py: 1,
                   px: 1.6,
-                  color: '#9CA3AF',
+                  color: '#898263',
                   transition: 'all 200ms ease',
-                  borderLeft: '3px solid transparent',
+                  borderLeft: 'none',
                   '&.active': {
-                    bgcolor: 'rgba(6, 182, 212, 0.12)',
-                    color: '#F9FAFB',
+                    bgcolor: '#E4DFC9',
+                    color: '#252A1C',
                     fontWeight: 600,
-                    borderLeft: '3px solid #06B6D4',
-                    boxShadow: 'inset 0 0 20px rgba(6, 182, 212, 0.06)',
+                    borderLeft: 'none',
+                    boxShadow: 'none',
                     '& .MuiListItemIcon-root': {
-                      color: '#06B6D4',
+                      color: '#252A1C',
                     },
                   },
-                  '&:hover': {
-                    bgcolor: 'rgba(255, 255, 255, 0.04)',
-                    color: '#F9FAFB',
+                  '&:hover:not(.active)': {
+                    bgcolor: 'rgba(228, 223, 201, 0.1)',
+                    color: '#FAF9F4',
                   },
                 }}
               >
@@ -132,7 +143,7 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
                 </ListItemIcon>
                 <ListItemText
                   primary={item.label}
-                  primaryTypographyProps={{ fontSize: '0.875rem', fontWeight: 500 }}
+                  primaryTypographyProps={{ fontSize: '0.875rem', fontWeight: 600 }}
                 />
               </ListItemButton>
             </ListItem>
@@ -140,7 +151,7 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
         })}
       </List>
 
-      <Divider sx={{ borderColor: '#374151' }} />
+      <Divider sx={{ borderColor: '#252A1C' }} />
 
       {/* ── System Status & Settings ── */}
       <Box sx={{ px: 2, py: 1.5 }}>
@@ -153,9 +164,9 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
             mb: 1.5,
             px: 1,
             py: 0.8,
-            borderRadius: '10px',
-            bgcolor: 'rgba(34, 197, 94, 0.06)',
-            border: '1px solid rgba(34, 197, 94, 0.15)',
+            borderRadius: '6px',
+            bgcolor: 'rgba(37, 43, 28, 0.6)', 
+            border: 'none',
           }}
         >
           <Box
@@ -164,11 +175,10 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
               width: 8,
               height: 8,
               borderRadius: '50%',
-              bgcolor: '#22C55E',
-              boxShadow: '0 0 8px rgba(34, 197, 94, 0.5)',
+              bgcolor: '#3F7A4D', 
             }}
           />
-          <Typography variant="caption" sx={{ color: '#4ADE80', fontWeight: 600, fontSize: '0.7rem', letterSpacing: '0.04em' }}>
+          <Typography variant="caption" sx={{ color: '#D8D2BC', fontWeight: 600, fontSize: '0.7rem', letterSpacing: '0.04em' }}>
             SECURE NODE ONLINE
           </Typography>
         </Box>
@@ -176,12 +186,12 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
         {/* Settings */}
         <ListItemButton
           sx={{
-            borderRadius: '10px',
+            borderRadius: '6px',
             py: 0.8,
             px: 1,
-            color: '#9CA3AF',
+            color: '#8A8060',
             mb: 0.5,
-            '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.04)' },
+            '&:hover': { bgcolor: 'rgba(216, 209, 184, 0.1)', color: '#FAF9F4' },
           }}
         >
           <ListItemIcon sx={{ minWidth: 32, color: 'inherit' }}>
@@ -194,16 +204,16 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
         </ListItemButton>
       </Box>
 
-      <Divider sx={{ borderColor: '#374151' }} />
+      <Divider sx={{ borderColor: '#252A1C' }} />
 
       {/* ── Officer Profile & Logout ── */}
-      <Box sx={{ p: 2, bgcolor: 'rgba(0, 0, 0, 0.2)' }}>
+      <Box sx={{ p: 2, bgcolor: '#252B1C' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1.5 }}>
           <Box>
-            <Typography variant="subtitle2" sx={{ color: '#F9FAFB', fontSize: '0.8rem', fontWeight: 600 }}>
+            <Typography variant="subtitle2" sx={{ color: '#FAF9F4', fontSize: '0.8rem', fontWeight: 600 }}>
               {user?.name || 'Aakanksha Sharma'}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#6B7280', display: 'block', fontSize: '0.7rem' }}>
+            <Typography variant="caption" sx={{ color: '#D8D2BC', display: 'block', fontSize: '0.7rem' }}>
               {user?.rank || 'Superintendent'} • {user?.badge_id || 'NCB-DL-082'}
             </Typography>
           </Box>
@@ -214,9 +224,11 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
               height: 20,
               fontSize: '0.62rem',
               fontWeight: 700,
-              bgcolor: 'rgba(34, 197, 94, 0.15)',
-              color: '#4ADE80',
+              bgcolor: 'rgba(63, 122, 77, 0.2)',
+              color: '#3F7A4D',
+              border: '1px solid #3F7A4D',
               letterSpacing: '0.04em',
+              borderRadius: '4px',
             }}
           />
         </Box>
@@ -228,13 +240,13 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
           onClick={handleLogout}
           startIcon={<LogOut size={14} />}
           sx={{
-            borderColor: 'rgba(239, 68, 68, 0.25)',
-            color: '#F87171',
+            borderColor: 'rgba(216, 210, 188, 0.3)',
+            color: '#D8D2BC',
             fontSize: '0.78rem',
-            borderRadius: '10px',
+            borderRadius: '6px',
             '&:hover': {
-              bgcolor: 'rgba(239, 68, 68, 0.08)',
-              borderColor: '#EF4444',
+              bgcolor: 'rgba(216, 210, 188, 0.1)',
+              borderColor: '#D8D2BC',
             },
           }}
         >
@@ -256,8 +268,8 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
           '& .MuiDrawer-paper': {
             width: width,
             boxSizing: 'border-box',
-            borderRight: '1px solid #374151',
-            bgcolor: '#0D1117',
+            borderRight: '1px solid #252B1C',
+            bgcolor: '#303722',
           },
         }}
         open
@@ -276,7 +288,7 @@ export const Sidebar = ({ width = 260, mobileOpen, onMobileClose }) => {
           '& .MuiDrawer-paper': {
             width: width,
             boxSizing: 'border-box',
-            bgcolor: '#0D1117',
+            bgcolor: '#343A24',
           },
         }}
       >

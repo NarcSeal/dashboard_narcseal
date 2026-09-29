@@ -119,9 +119,12 @@ export const Sidebar = ({ width = 240, mobileOpen, onMobileClose }) => {
                   borderRadius: '6px',
                   py: 1,
                   px: 1.6,
-                  color: '#898263',
+                  color: '#FAF9F4',
                   transition: 'all 200ms ease',
                   borderLeft: 'none',
+                  '& .MuiListItemText-primary': {
+                    color: '#FAF9F4',
+                  },
                   '&.active': {
                     bgcolor: '#E4DFC9',
                     color: '#252A1C',
@@ -130,6 +133,10 @@ export const Sidebar = ({ width = 240, mobileOpen, onMobileClose }) => {
                     boxShadow: 'none',
                     '& .MuiListItemIcon-root': {
                       color: '#252A1C',
+                    },
+                    '& .MuiListItemText-primary': {
+                      color: '#252A1C',
+                      fontWeight: 600,
                     },
                   },
                   '&:hover:not(.active)': {
@@ -189,8 +196,11 @@ export const Sidebar = ({ width = 240, mobileOpen, onMobileClose }) => {
             borderRadius: '6px',
             py: 0.8,
             px: 1,
-            color: '#8A8060',
+            color: '#FAF9F4',
             mb: 0.5,
+            '& .MuiListItemText-primary': {
+              color: '#FAF9F4',
+            },
             '&:hover': { bgcolor: 'rgba(216, 209, 184, 0.1)', color: '#FAF9F4' },
           }}
         >
